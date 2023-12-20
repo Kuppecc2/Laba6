@@ -1,45 +1,148 @@
+```cpp
+/**
+ * @file my_complex.h
+ * @brief Определение класса Complex для работы с комплексными числами.
+ */
+
 #ifndef _MY_COMPLEX_H_
 #define _MY_COMPLEX_H_
 
 #include <iostream>
 
-class Complex {
-    double Re;
-    double Im;
+ /**
+  * @class Complex
+  * @brief Класс для представления комплексных чисел и выполнения операций с ними.
+  */
+    class Complex {
+    double Re; /**< Действительная часть комплексного числа. */
+    double Im; /**< Мнимая часть комплексного числа. */
 
-public:
-    Complex(double aRe = 0, double aIm = 0);
-    Complex(const Complex&);
-    ~Complex();
+    public:
+        /**
+         * @brief Конструктор с параметрами.
+         * @param aRe Действительная часть комплексного числа.
+         * @param aIm Мнимая часть комплексного числа (по умолчанию 0).
+         */
+        Complex(double aRe = 0, double aIm = 0);
 
-    void Set(double aRe, double aIm = 0);
-    operator double();
-    double abs();
+        /**
+         * @brief Конструктор копирования.
+         * @param Комплексное число, которое будет скопировано.
+         */
+        Complex(const Complex&);
 
-    friend istream& operator>>(istream&, Complex&);
-    friend ostream& operator<<(ostream&, const Complex&);
+        /**
+         * @brief Деструктор.
+         */
+        ~Complex();
 
-    Complex operator+(const Complex&);
-    Complex operator-(const Complex&);
-    Complex operator+(const double&);
-    friend Complex operator+(const double&, const Complex&);
-    Complex operator-(const double&);
-    friend Complex operator-(const double&, const Complex&);
-    Complex operator*(const Complex&);
-    Complex operator*(const double&);
-    friend Complex operator*(const double&, const Complex&);
-    Complex operator/(const double&);
+        /**
+         * @brief Установка новых значений для действительной и мнимой частей.
+         * @param aRe Новое значение для действительной части.
+         * @param aIm Новое значение для мнимой части (по умолчанию 0).
+         */
+        void Set(double aRe, double aIm = 0);
 
-    Complex& operator+=(const Complex&);
-    Complex& operator-=(const Complex&);
-    Complex& operator*=(const Complex&);
-    Complex& operator+=(const double&);
-    Complex& operator-=(const double&);
-    Complex& operator*=(const double&);
-    Complex& operator/=(const double&);
+        /**
+         * @brief Преобразование комплексного числа в его модуль.
+         * @return Модуль комплексного числа.
+         */
+        operator double();
 
-    Complex& operator=(const Complex&);
-    Complex& operator=(const double&);
-};
+        /**
+         * @brief Вычисление модуля комплексного числа.
+         * @return Модуль комплексного числа.
+         */
+        double abs();
 
-#endif
+        /**
+         * @brief Перегруженный оператор сложения комплексных чисел.
+         * @param aRval Комплексное число, с которым производится сложение.
+         * @return Результат сложения комплексных чисел.
+         */
+        Complex operator+(const Complex&);
+
+        /**
+         * @brief Перегруженный оператор вычитания комплексных чисел.
+         * @param aRval Комплексное число, которое вычитается.
+         * @return Результат вычитания комплексных чисел.
+         */
+        Complex operator-(const Complex&);
+
+        /**
+         * @brief Перегруженный оператор сложения комплексного числа с вещественным числом.
+         * @param aval Вещественное число, с которым производится сложение.
+         * @return Результат сложения.
+         */
+        Complex operator+(const double&);
+
+        /**
+         * @brief Перегруженный оператор сложения вещественного числа с комплексным числом.
+         * @param aLval Вещественное число, с которым производится сложение.
+         * @param aRval Комплексное число, к которому прибавляется вещественное.
+         * @return Результат сложения.
+         */
+        friend Complex operator+(const double&, const Complex&);
+
+        /**
+         * @brief Перегруженный оператор вычитания вещественного числа из комплексного числа.
+         * @param aRval Вещественное число, которое вычитается.
+         * @return Результат вычитания.
+         */
+        Complex operator-(const double&);
+
+        /**
+         * @brief Перегруженный оператор вычитания комплексного числа из вещественного.
+         * @param aLval Вещественное число, из которого вычитается комплексное.
+         * @param aRval Комплексное число, которое вычитается.
+         * @return Результат вычитания.
+         */
+        friend Complex operator-(const double&, const Complex&);
+
+        /**
+         * @brief Перегруженный оператор умножения комплексных чисел.
+         * @param aRval Комплексное число, на которое умножается текущее.
+         * @return Результат умножения комплексных чисел.
+         */
+        Complex operator*(const Complex&);
+
+        /**
+         * @brief Перегруженный оператор умножения комплексного числа на вещественное.
+         * @param aRval Вещественное число, на которое умножается комплексное.
+         * @return Результат умножения комплексного числа на вещественное.
+         */
+        Complex operator*(const double&);
+
+        /**
+         * @brief Перегруженный оператор умножения вещественного числа на комплексное.
+         * @param aLval Вещественное число, на которое умножается комплексное.
+         * @param aRval Комплексное число, которое умножается.
+         * @return Результат умножения.
+         */
+        friend Complex operator*(const double&, const Complex&);
+
+        /**
+         * @brief Перегруженный оператор деления комплексного числа на вещественное.
+         * @param aRval Вещественное число, на которое делится текущее.
+         * @return Результат деления комплексного числа на вещественное.
+         */
+        Complex operator/(const double&);
+
+        /**
+         * @brief Перегруженный оператор сложения с присваиванием комплексных чисел.
+         * @param arval Комплексное число, которое прибавляется.
+         * @return Ссылка на текущий объект.
+         */
+        Complex& operator+=(const Complex&);
+
+        /**
+         * @brief Перегруженный оператор вычитания с присваиванием комплексных чисел.
+         * @param aRval Комплексное число, которое вычитается.
+         * @return Ссылка на текущий объект.
+         */
+        Complex& operator-=(const Complex&);
+
+        /**
+         * @brief Перегруженный оператор умножения с присваиванием комплексных чисел.
+         * @param aRval Комплексное число, на которое умножается текущее.
+         * @
