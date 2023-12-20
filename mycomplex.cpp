@@ -1,170 +1,152 @@
+```cpp
+/**
+ * @file mycomplex.h
+ * @brief Определение класса Complex для работы с комплексными числами.
+ */
+
+#ifndef MYCOMPLEX_H
+#define MYCOMPLEX_H
+
 #include <iostream>
 #include <cmath>
-#include "mycomplex.h"
 
-using namespace std;
+/**
+ * @class Complex
+ * @brief Класс для представления комплексных чисел и выполнения операций с ними.
+ */
+class Complex {
+public:
+    /**
+     * @brief Конструктор с параметрами.
+     * @param aRe Действительная часть комплексного числа.
+     * @param aIm Мнимая часть комплексного числа.
+     */
+    Complex(double aRe, double aIm);
 
-Complex::Complex(double aRe, double aIm) {
-    Re = aRe;
-    Im = aIm;
-}
+    /**
+     * @brief Конструктор копирования.
+     * @param aRval Комплексное число, которое будет скопировано.
+     */
+    Complex(const Complex& aRval);
 
-Complex::Complex(const Complex& aRval) {
-    Re = aRval.Re;
-    Im = aRval.Im;
-}
+    /**
+     * @brief Деструктор.
+     */
+    ~Complex();
 
-Complex::~Complex() {
-    Re = 0.0;
-    Im = 0.0;
-}
+    /**
+     * @brief Установка новых значений для действительной и мнимой частей.
+     * @param aRe Новое значение для действительной части.
+     * @param aIm Новое значение для мнимой части.
+     */
+    void Set(double aRe, double aIm);
 
-void Complex::Set(double aRe, double aIm) {
-    Re = aRe;
-    Im = aIm;
-}
+    /**
+     * @brief Преобразование комплексного числа в его модуль.
+     * @return Модуль комплексного числа.
+     */
+    operator double();
 
-Complex::operator double() {
-    return abs();
-}
+    /**
+     * @brief Вычисление модуля комплексного числа.
+     * @return Модуль комплексного числа.
+     */
+    double abs();
 
-double Complex::abs() {
-    return sqrt(Re * Re + Im * Im);
-}
+    /**
+     * @brief Перегруженный оператор сложения комплексных чисел.
+     * @param aRval Комплексное число, с которым производится сложение.
+     * @return Результат сложения комплексных чисел.
+     */
+    Complex operator+(const Complex& aRval);
 
-Complex Complex::operator+(const Complex& aRval) {
-    Complex Result;
-    Result.Re = Re + aRval.Re;
-    Result.Im = Im + aRval.Im;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор вычитания комплексных чисел.
+     * @param aRval Комплексное число, которое вычитается.
+     * @return Результат вычитания комплексных чисел.
+     */
+    Complex operator-(const Complex& aRval);
 
-Complex Complex::operator-(const Complex& aRval) {
-    Complex Result;
-    Result.Re = Re - aRval.Re;
-    Result.Im = Im - aRval.Im;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор сложения комплексного числа с вещественным числом.
+     * @param aval Вещественное число, с которым производится сложение.
+     * @return Результат сложения.
+     */
+    Complex operator+(const double& aval);
 
-Complex Complex::operator+(const double& aval) {
-    Complex result;
-    result.Re = Re + aval;
-    result.Im = Im;
-    return result;
-}
+    /**
+     * @brief Перегруженный оператор вычитания вещественного числа из комплексного.
+     * @param aRval Вещественное число, которое вычитается.
+     * @return Результат вычитания.
+     */
+    Complex operator-(const double& aRval);
 
-Complex Complex::operator-(const double& aRval) {
-    Complex Result(*this);
-    Result.Re = Re - aRval;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор умножения комплексных чисел.
+     * @param aRval Комплексное число, на которое умножается текущее.
+     * @return Результат умножения комплексных чисел.
+     */
+    Complex operator*(const Complex& aRval);
 
-Complex Complex::operator*(const Complex& aRval) {
-    Complex Result;
-    Result.Re = Re * aRval.Re - Im * aRval.Im;
-    Result.Im = Re * aRval.Im + Im * aRval.Re;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор умножения комплексного числа на вещественное.
+     * @param aRval Вещественное число, на которое умножается комплексное.
+     * @return Результат умножения комплексного числа на вещественное.
+     */
+    Complex operator*(const double& aRval);
 
-Complex Complex::operator*(const double& aRval) {
-    Complex Result;
-    Result.Re = Re * aRval;
-    Result.Im = Im * aRval;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор деления комплексного числа на вещественное.
+     * @param aRval Вещественное число, на которое делится комплексное.
+     * @return Результат деления комплексного числа на вещественное.
+     */
+    Complex operator/(const double& aRval);
 
-Complex Complex::operator/(const double& aRval) {
-    Complex Result;
-    Result.Re = Re / aRval;
-    Result.Im = Im / aRval;
-    return Result;
-}
+    /**
+     * @brief Перегруженный оператор сложения с присваиванием комплексных чисел.
+     * @param arval Комплексное число, которое прибавляется.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator+=(const Complex& arval);
 
-Complex& Complex::operator+=(const Complex& arval) {
-    Re += arval.Re;
-    Im += arval.Im;
-    return *this;
-}
+    /**
+     * @brief Перегруженный оператор вычитания с присваиванием комплексных чисел.
+     * @param aRval Комплексное число, которое вычитается.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator-=(const Complex& aRval);
 
-Complex& Complex::operator-=(const Complex& aRval) {
-    Re -= aRval.Re;
-    Im -= aRval.Im;
-    return *this;
-}
+    /**
+     * @brief Перегруженный оператор умножения с присваиванием комплексных чисел.
+     * @param aRval Комплексное число, на которое умножается текущее.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator*=(const Complex& aRval);
 
-Complex& Complex::operator*=(const Complex& aRval) {
-    double tmpRe = Re;
-    Re = Re * aRval.Re - Im * aRval.Im;
-    Im = Im * aRval.Re + tmpRe * aRval.Im;
-    return *this;
-}
+    /**
+     * @brief Перегруженный оператор сложения с присваиванием вещественного числа.
+     * @param aRval Вещественное число, которое прибавляется.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator+=(const double& aRval);
 
-Complex& Complex::operator+=(const double& aRval) {
-    Re += aRval;
-    return *this;
-}
+    /**
+     * @brief Перегруженный оператор вычитания с присваиванием вещественного числа.
+     * @param aRval Вещественное число, которое вычитается.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator-=(const double& aRval);
 
-Complex& Complex::operator-=(const double& aRval) {
-    Re -= aRval;
-    return *this;
-}
+    /**
+     * @brief Перегруженный оператор умножения с присваиванием вещественного числа.
+     * @param aRval Вещественное число, на которое умножается текущее.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator*=(const double& aRval);
 
-Complex& Complex::operator*=(const double& aRval) {
-    Re *= aRval;
-    Im *= aRval;
-    return *this;
-}
-
-Complex& Complex::operator/=(const double& aRval) {
-    Re /= aRval;
-    Im /= aRval;
-    return *this;
-}
-
-Complex& Complex::operator=(const Complex& aRval) {
-    Re = aRval.Re;
-    Im = aRval.Im;
-    return *this;
-}
-
-Complex& Complex::operator=(const double& aRval) {
-    Re = aRval;
-    Im = 0.0;
-    return *this;
-}
-
-istream& operator>>(istream& stream, Complex& a) {
-    char tmp[256];
-    stream >> a.Re >> a.Im >> tmp;
-    return stream;
-}
-
-ostream& operator<<(ostream& stream, Complex& a) {
-    stream << a.Re;
-    if (!(a.Im < 0)) {
-        stream << '+';
-    }
-    stream << a.Im << 'i';
-    return stream;
-}
-
-Complex operator+(const double& aLval, const Complex& aRval) {
-    Complex Result;
-    Result.Re = aLval + aRval.Re;
-    Result.Im = aRval.Im;
-    return Result;
-}
-
-Complex operator-(const double& aLval, const Complex& aRval) {
-    Complex Result;
-    Result.Re = aLval - aRval.Re;
-    Result.Im = -aRval.Im;
-    return Result;
-}
-
-Complex operator*(const double& aLval, const Complex& a) {
-    Complex r;
-    r.Re = aLval * a.Re;
-    r.Im = aLval * a.Im;
-    return r;
-}
+    /**
+     * @brief Перегруженный оператор деления с присваиванием вещественного числа.
+     * @param aRval Вещественное число, на которое делится текущее.
+     * @return Ссылка на текущий объект.
+     */
+    Complex& operator/=(
